@@ -10,7 +10,7 @@ public class reverseIdx {
 //Data structure
 // Each word is kept in a central Map
 // Each map entry references a second Map with all of the words and follow percentages
-// Memory: O(n^2) (can we reduce this by only keeping non zero maps?)
+// Memory: O(n^2) (can we reduce this by only keeping non zero maps?) DONE
 
 	//Internal Data
 	//Central 'memory' structure
@@ -42,7 +42,10 @@ public class reverseIdx {
 		//Cycle them all
 		// No last/first word probability implementation yet
 		for(int i = 0; i<tokens.length-1;i++) {
-			//System.out.printf("String be checked: %s\n",tokens[i]);
+			//We skip over empty tokens
+			if (tokens[i].length()<=1) {
+				continue;
+			}
 			
 			//Special case for end sentence
 			if(tokens[i].charAt(tokens[i].length()-1)=='.'){
@@ -112,6 +115,7 @@ public class reverseIdx {
 		// Stopping early if needed (currently the only termination check)
 		for(int i = 1; i< phraseLen; i++) {
 			//System.out.printf("word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
+			
 			Object[] nextKeys = centralMap.get(currWord).keySet().toArray();
 			int temp = r.nextInt(nextKeys.length);
 			currWord = (String)(nextKeys[temp]);
