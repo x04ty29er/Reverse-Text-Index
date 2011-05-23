@@ -112,23 +112,26 @@ public class reverseIdx {
 		String currWord = sayOut;
 
 		// Loop until a phrase of a proper length is generated.
-		// Stopping early if needed (currently the only termination check)
 		for(int i = 1; i< phraseLen; i++) {
-			//System.out.printf("word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
-			
 			Object[] nextKeys = centralMap.get(currWord).keySet().toArray();
-			int temp = r.nextInt(nextKeys.length);
-			currWord = (String)(nextKeys[temp]);
+			
+			//Basic weighting
+			ArrayList<String> weightKeys = new ArrayList<String>();
+			for(int k = 0; k<nextKeys.length; k++){
+				for(int j = 0;j<=centralMap.get(currWord).get((String)nextKeys[k]);j++) {
+					weightKeys.add((String)nextKeys[k]);
+				}
+			}
+			
+			int temp = r.nextInt(weightKeys.size());
+			currWord = (String)(weightKeys.get(temp));
 			if(currWord.equals(endSent)){
 				sayOut+=".";
 				currWord = (String)(keys[r.nextInt(nextKeys.length)]);
-			//System.out.printf("INSIDE ENDSENT CHECK word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
 			}
 			else if(!centralMap.containsKey(currWord)) {
 				sayOut += " "+currWord;
 				currWord = (String)(keys[r.nextInt(nextKeys.length)]);
-				//System.out.printf("INSIDE NULL POINTER CHECK word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
-				//return sayOut;
 			}
 			
 			sayOut += " "+currWord;
