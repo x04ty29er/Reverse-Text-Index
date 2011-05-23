@@ -5,7 +5,7 @@ import java.util.*;
 public class activeTest {
 
 	private static reverseIdx brain;
-	private static int sentLen = 10;
+	private static int sentLen = 20;
 	
 	
 	public static void main(String []args){
