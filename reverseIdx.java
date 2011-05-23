@@ -42,12 +42,12 @@ public class reverseIdx {
 		//Cycle them all
 		// No last/first word probability implementation yet
 		for(int i = 0; i<tokens.length-1;i++) {
-			System.out.printf("String be checked: %s\n",tokens[i]);
+			//System.out.printf("String be checked: %s\n",tokens[i]);
 			
 			//Special case for end sentence
 			if(tokens[i].charAt(tokens[i].length()-1)=='.'){
 				String currInp = tokens[i].substring(0,tokens[i].length()-1);
-				System.out.printf("attempt to append: %s\n",currInp);
+				//System.out.printf("attempt to append: %s\n",currInp);
 				//Check for existence of current key
 				if(centralMap.containsKey(currInp)) {
 					
@@ -111,19 +111,19 @@ public class reverseIdx {
 		// Loop until a phrase of a proper length is generated.
 		// Stopping early if needed (currently the only termination check)
 		for(int i = 1; i< phraseLen; i++) {
-			System.out.printf("word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
+			//System.out.printf("word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
 			Object[] nextKeys = centralMap.get(currWord).keySet().toArray();
 			int temp = r.nextInt(nextKeys.length);
 			currWord = (String)(nextKeys[temp]);
 			if(currWord.equals(endSent)){
 				sayOut+=".";
 				currWord = (String)(keys[r.nextInt(nextKeys.length)]);
-				System.out.printf("INSIDE ENDSENT CHECK word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
+			//System.out.printf("INSIDE ENDSENT CHECK word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
 			}
 			else if(!centralMap.containsKey(currWord)) {
 				sayOut += " "+currWord;
 				currWord = (String)(keys[r.nextInt(nextKeys.length)]);
-				System.out.printf("INSIDE NULL POINTER CHECK word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
+				//System.out.printf("INSIDE NULL POINTER CHECK word Being considered: %s\n Current total String: %s\n", currWord,sayOut);
 				//return sayOut;
 			}
 			
