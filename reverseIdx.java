@@ -46,7 +46,7 @@ public class reverseIdx {
 			if (tokens[i].length()<=1) {
 				continue;
 			}
-			
+			//System.out.println(tokens[i]);
 			//Special case for end sentence
 			if(tokens[i].charAt(tokens[i].length()-1)=='.'){
 				String currInp = tokens[i].substring(0,tokens[i].length()-1);
@@ -85,12 +85,20 @@ public class reverseIdx {
 						centralMap.get(tokens[i]).put(tokens[i+1],temp);
 					}
 					else {
-						centralMap.get(tokens[i]).put(tokens[i+1],new Integer(1));
+						if(tokens[i+1].charAt(tokens[i+1].length()-1)=='.'){
+							centralMap.get(tokens[i]).put(tokens[i+1].substring(0,tokens[i+1].length()-1),new Integer(1));
+						} else {
+							centralMap.get(tokens[i]).put(tokens[i+1],new Integer(1));
+						}
 					}
 				}
 				else {
 					HashMap<String,Integer> temp = new HashMap<String,Integer>();
-					temp.put(tokens[i+1],new Integer(1));
+					if(tokens[i+1].charAt(tokens[i+1].length()-1)=='.'){
+						temp.put(tokens[i+1].substring(0,tokens[i+1].length()-1),new Integer(1));
+					} else {
+						temp.put(tokens[i+1],new Integer(1));
+					}
 					centralMap.put(tokens[i],temp);
 				}
 			}
@@ -127,11 +135,11 @@ public class reverseIdx {
 			currWord = (String)(weightKeys.get(temp));
 			if(currWord.equals(endSent)){
 				sayOut+=".";
-				currWord = (String)(keys[r.nextInt(nextKeys.length)]);
+				currWord = (String)(keys[r.nextInt(keys.length)]);
 			}
 			else if(!centralMap.containsKey(currWord)) {
-				sayOut += " "+currWord;
-				currWord = (String)(keys[r.nextInt(nextKeys.length)]);
+				sayOut += " "+currWord+".";
+				currWord = (String)(keys[r.nextInt(keys.length)]);
 			}
 			
 			sayOut += " "+currWord;
