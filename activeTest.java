@@ -35,8 +35,15 @@ public class activeTest {
 		while (true) {
 			System.out.print("Your Input: ");
 			userInput = s.nextLine();
-			brain.memorize(userInput);
-			System.out.println(brain.utter(sentLen));
+			if(userInput.equals("showBrain")) {
+				brain.testPrint();
+				continue;
+			} else if (userInput.equals("exit")) {
+				break;
+			} else {
+				brain.memorize(userInput);
+				System.out.println(brain.utter(sentLen));
+			}
 		}
 	}
 }
